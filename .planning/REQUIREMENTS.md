@@ -14,6 +14,15 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **AUTH-03**: User session persists for 7 days (JWT in httpOnly cookie)
 - [ ] **AUTH-04**: User can log out from any page
 
+### Security
+
+- [ ] **SEC-01**: All API endpoints served over HTTPS (Cloudflare default)
+- [ ] **SEC-02**: R2 file storage encrypted at rest
+- [ ] **SEC-03**: Magic link tokens single-use and expire after 15 minutes
+- [ ] **SEC-04**: Client review tokens expire after 24 hours
+- [ ] **SEC-05**: Rate limiting on auth endpoints (10 requests/min) and AI endpoints (100/min)
+- [ ] **SEC-06**: Input sanitization on all CSV uploads (prevent injection)
+
 ### Projects
 
 - [ ] **PROJ-01**: User can create new P&L project (client name, email, industry, date range)
@@ -29,19 +38,22 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **UPLD-04**: System filters transactions by project date range
 - [ ] **UPLD-05**: System normalizes amounts (negative = expense, positive = income)
 - [ ] **UPLD-06**: User can delete an upload (removes associated transactions)
+- [ ] **UPLD-07**: Bank-specific amount normalization rules (Chase, BofA, Amex, etc.)
 
 ### AI Categorization
 
-- [ ] **AICAT-01**: System categorizes transactions using Claude Sonnet 4.5
+- [ ] **AICAT-01**: System categorizes transactions using Claude Sonnet 4
 - [ ] **AICAT-02**: Each transaction assigned to bucket: Business / Personal / Needs Review
 - [ ] **AICAT-03**: Each transaction shows AI confidence score (0-100%)
 - [ ] **AICAT-04**: System normalizes vendor names before categorization
 - [ ] **AICAT-05**: System checks rules table before calling AI (rules take precedence)
+- [ ] **AICAT-06**: AI category names mapped to category_id; ambiguous names default to "Needs Review"
+- [ ] **AICAT-07**: Claude API fallback: Sonnet → Opus → mark as "Needs Review" if both fail
 
 ### Rules Engine
 
 - [ ] **RULE-01**: System creates rule when user overrides AI categorization
-- [ ] **RULE-02**: Rules are global (apply across all clients/projects)
+- [ ] **RULE-02**: Rules scoped to firm level (shared across all clients within the CPA firm)
 - [ ] **RULE-03**: Rules match on normalized vendor pattern
 - [ ] **RULE-04**: User can view and delete learned rules
 
@@ -59,7 +71,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Transfer Detection
 
 - [ ] **XFER-01**: System detects CC payment transactions in checking account
-- [ ] **XFER-02**: System matches CC payments with CC credits (same amount, ±1 day)
+- [ ] **XFER-02**: System matches CC payments with CC credits (same amount, +/-1 day)
 - [ ] **XFER-03**: Matched transfers excluded from P&L calculations
 - [ ] **XFER-04**: User can manually mark/unmark transaction as transfer
 
@@ -93,6 +105,12 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **COA-02**: Each template includes appropriate categories per section
 - [ ] **COA-03**: User can add custom categories to any project
 - [ ] **COA-04**: Personal expenses map to Shareholder Distribution category
+
+### Data Retention
+
+- [ ] **RETAIN-01**: Soft delete with deleted_at column (records recoverable)
+- [ ] **RETAIN-02**: 7-year data retention with 30-day warning before purge
+- [ ] **RETAIN-03**: Automated purge job for records exceeding retention period
 
 ## v2 Requirements
 
@@ -143,7 +161,7 @@ Explicitly excluded. Documented to prevent scope creep.
 | Multi-tenant roles/permissions | All staff equal for MVP; 2-3 users |
 | Real-time collaboration | Single-user editing per project sufficient |
 | Inventory tracking | COGS uses simple Beginning/Purchases/Ending formula |
-| Per-client rules | Global rules simpler; most vendors behave similarly |
+| Per-client rules | Firm-level rules sufficient; most vendors behave similarly across clients |
 | PDF bank statement parsing | CSV universally supported; PDF OCR complex |
 | Batch AI with queuing | Direct API calls sufficient for transaction volumes |
 
@@ -157,6 +175,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | AUTH-02 | Phase 1 | Pending |
 | AUTH-03 | Phase 1 | Pending |
 | AUTH-04 | Phase 1 | Pending |
+| SEC-01 | Phase 1 | Pending |
+| SEC-02 | Phase 1 | Pending |
+| SEC-03 | Phase 1 | Pending |
+| SEC-04 | Phase 6 | Pending |
+| SEC-05 | Phase 1 | Pending |
+| SEC-06 | Phase 2 | Pending |
 | PROJ-01 | Phase 1 | Pending |
 | PROJ-02 | Phase 1 | Pending |
 | PROJ-03 | Phase 1 | Pending |
@@ -167,11 +191,14 @@ Which phases cover which requirements. Updated during roadmap creation.
 | UPLD-04 | Phase 2 | Pending |
 | UPLD-05 | Phase 2 | Pending |
 | UPLD-06 | Phase 2 | Pending |
+| UPLD-07 | Phase 2 | Pending |
 | AICAT-01 | Phase 3 | Pending |
 | AICAT-02 | Phase 3 | Pending |
 | AICAT-03 | Phase 3 | Pending |
 | AICAT-04 | Phase 3 | Pending |
 | AICAT-05 | Phase 3 | Pending |
+| AICAT-06 | Phase 3 | Pending |
+| AICAT-07 | Phase 3 | Pending |
 | RULE-01 | Phase 3 | Pending |
 | RULE-02 | Phase 3 | Pending |
 | RULE-03 | Phase 3 | Pending |
@@ -207,12 +234,15 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CLIENT-04 | Phase 6 | Pending |
 | CLIENT-05 | Phase 6 | Pending |
 | CLIENT-06 | Phase 6 | Pending |
+| RETAIN-01 | Phase 6 | Pending |
+| RETAIN-02 | Phase 6 | Pending |
+| RETAIN-03 | Phase 6 | Pending |
 
 **Coverage:**
-- v1 requirements: 47 total
-- Mapped to phases: 47
+- v1 requirements: 66 total
+- Mapped to phases: 66
 - Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2025-01-27*
-*Last updated: 2025-01-27 after initial definition*
+*Last updated: 2025-01-27 - Roadmap phase mapping complete*

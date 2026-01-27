@@ -88,6 +88,8 @@ Each has a specific chart of accounts template derived from actual CPA practice.
 | Magic link auth | Simple for small team; no password management | — Pending |
 | Hono framework for Workers | Lightweight, fast, good DX for Cloudflare Workers | — Pending |
 | Drizzle ORM for D1 | Type-safe, lightweight, good D1 support | — Pending |
+| React + Vite frontend | Mature ecosystem, good Cloudflare Pages support | — Pending |
+| Firm-level rules (not global) | Prevents cross-firm vendor leakage | — Pending |
 
 ---
 *Last updated: 2025-01-27 after initialization*
