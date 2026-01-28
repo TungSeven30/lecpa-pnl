@@ -168,6 +168,13 @@ app.put('/:id', async (c) => {
   if (parsed.data.periodStart) updates.periodStart = new Date(parsed.data.periodStart);
   if (parsed.data.periodEnd) updates.periodEnd = new Date(parsed.data.periodEnd);
 
+  // Validate final date range (merge updates with existing values)
+  const finalStart = updates.periodStart instanceof Date ? updates.periodStart : existing.periodStart;
+  const finalEnd = updates.periodEnd instanceof Date ? updates.periodEnd : existing.periodEnd;
+  if (finalStart >= finalEnd) {
+    return c.json({ error: 'End date must be after start date' }, 400);
+  }
+
   const updated = await db.update(projects)
     .set(updates)
     .where(eq(projects.id, projectId))
