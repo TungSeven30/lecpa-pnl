@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useProject } from '../hooks/useProjects';
-import { useUploads, useCreateUpload, TransactionInput } from '../hooks/useUploads';
+import { useUploads, useCreateUpload, useDeleteUpload, TransactionInput } from '../hooks/useUploads';
 import { Layout } from '../components/Layout';
 import { UploadZone } from '../components/upload/UploadZone';
 import { ColumnMapper } from '../components/upload/ColumnMapper';
@@ -21,6 +21,7 @@ export function ProjectDetail() {
   const { data: project, isLoading: projectLoading, error: projectError } = useProject(projectId);
   const { data: uploads, isLoading: uploadsLoading } = useUploads(projectId);
   const createUpload = useCreateUpload(projectId);
+  const deleteUpload = useDeleteUpload(projectId);
 
   const [uploadState, setUploadState] = useState<UploadState>('idle');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -30,6 +31,7 @@ export function ProjectDetail() {
   const [bankType, setBankType] = useState<BankType>('chase');
   const [accountType, setAccountType] = useState<AccountType>('checking');
   const [uploadError, setUploadError] = useState<string | null>(null);
+  const [deletingUploadId, setDeletingUploadId] = useState<number | null>(null);
 
   const handleFileSelect = async (file: File) => {
     setSelectedFile(file);
@@ -127,6 +129,21 @@ export function ProjectDetail() {
     setHeaders([]);
     setColumnMapping(null);
     setUploadError(null);
+  };
+
+  const handleDeleteUpload = async (uploadId: number) => {
+    if (!confirm('Are you sure you want to delete this upload? All associated transactions will be removed.')) {
+      return;
+    }
+
+    setDeletingUploadId(uploadId);
+    try {
+      await deleteUpload.mutateAsync(uploadId);
+    } catch (err) {
+      alert(err instanceof Error ? err.message : 'Failed to delete upload');
+    } finally {
+      setDeletingUploadId(null);
+    }
   };
 
   if (projectLoading) {
@@ -279,9 +296,18 @@ export function ProjectDetail() {
                       {upload.bankType} • {upload.accountType} • {upload.transactionCount} transactions
                     </p>
                   </div>
-                  <span className="text-sm text-gray-400">
-                    {new Date(upload.createdAt).toLocaleDateString()}
-                  </span>
+                  <div className="flex items-center space-x-4">
+                    <span className="text-sm text-gray-400">
+                      {new Date(upload.createdAt).toLocaleDateString()}
+                    </span>
+                    <button
+                      onClick={() => handleDeleteUpload(upload.id)}
+                      disabled={deletingUploadId === upload.id}
+                      className="text-red-600 hover:text-red-800 text-sm disabled:opacity-50"
+                    >
+                      {deletingUploadId === upload.id ? 'Deleting...' : 'Delete'}
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>

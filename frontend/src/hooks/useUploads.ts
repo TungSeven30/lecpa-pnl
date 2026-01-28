@@ -57,3 +57,26 @@ export function useCreateUpload(projectId: number) {
     }
   });
 }
+
+export function useDeleteUpload(projectId: number) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (uploadId: number) => {
+      const response = await fetch(`/api/projects/${projectId}/uploads/${uploadId}`, {
+        method: 'DELETE',
+        credentials: 'include'
+      });
+
+      if (!response.ok) {
+        const error = await response.json().catch(() => ({ error: 'Failed to delete upload' }));
+        throw new Error(error.error || 'Failed to delete upload');
+      }
+
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['uploads', projectId] });
+    }
+  });
+}
