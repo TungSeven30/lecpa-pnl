@@ -5,7 +5,7 @@
 See: .planning/PROJECT.md (updated 2025-01-27)
 
 **Core value:** Staff can process a client's monthly financials in 15-30 minutes instead of several hours
-**Current focus:** Phase 2 - Upload & Parse (IN PROGRESS)
+**Current focus:** Phase 2 - Upload & Parse (COMPLETE)
 
 ## Current Position
 
@@ -14,7 +14,7 @@ Plan: 4 of 4 in current phase
 Status: Phase complete
 Last activity: 2026-01-28 - Completed 02-04-PLAN.md (upload deletion)
 
-Progress: [######----] 100% (Phase 2)
+Progress: [###-------] 33% (2/6 phases complete)
 
 ## Phase 1 Plans
 
@@ -135,8 +135,8 @@ Resume file: None
 
 ## Next Steps
 
-Phase 2 (Upload & Parse) - COMPLETE ✓
+Phases 1-2 complete ✓
 
 Ready for Phase 3 (AI Categorization):
-1. `/gsd:research 03` - Research AI categorization requirements
-2. `/gsd:plan 03-01` - Plan AI categorization service integration
+1. `/gsd:discuss-phase 3` - Gather context and clarify approach
+2. `/gsd:plan-phase 3` - Plan the AI categorization phase

@@ -13,7 +13,7 @@ This roadmap delivers a web-based P&L generator that transforms 2-4 hours of man
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation** - Authentication, database, project management, basic UI shell
-- [ ] **Phase 2: Upload & Parse** - CSV upload, column detection, transaction parsing
+- [x] **Phase 2: Upload & Parse** - CSV upload, column detection, transaction parsing
 - [ ] **Phase 3: AI Categorization** - Claude integration, rules engine, vendor normalization
 - [ ] **Phase 4: Review Interface** - Transaction UI, batch actions, splitting, transfer/duplicate detection
 - [ ] **Phase 5: Reports & Export** - P&L generation, PDF/Excel export, chart of accounts
@@ -56,10 +56,10 @@ Plans:
 **Plans**: 4 plans in 3 waves
 
 Plans:
-- [ ] 02-01-PLAN.md — Database schema (uploads, transactions tables with indexes)
-- [ ] 02-02-PLAN.md — CSV services (parser, sanitizer, column detector, normalizer, bank configs)
-- [ ] 02-03-PLAN.md — Upload flow (API endpoint, UploadZone, ColumnMapper, ProjectDetail page)
-- [ ] 02-04-PLAN.md — Delete upload functionality (soft delete with cascade)
+- [x] 02-01-PLAN.md — Database schema (uploads, transactions tables with indexes)
+- [x] 02-02-PLAN.md — CSV services (parser, sanitizer, column detector, normalizer, bank configs)
+- [x] 02-03-PLAN.md — Upload flow (API endpoint, UploadZone, ColumnMapper, ProjectDetail page)
+- [x] 02-04-PLAN.md — Delete upload functionality (soft delete with cascade)
 
 ### Phase 3: AI Categorization
 **Goal**: Transactions are automatically categorized using AI with learning from corrections
@@ -142,7 +142,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete | 2026-01-28 |
-| 2. Upload & Parse | 0/4 | Planned | - |
+| 2. Upload & Parse | 4/4 | Complete | 2026-01-28 |
 | 3. AI Categorization | 0/? | Not started | - |
 | 4. Review Interface | 0/? | Not started | - |
 | 5. Reports & Export | 0/? | Not started | - |

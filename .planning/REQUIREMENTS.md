@@ -21,8 +21,8 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **SEC-03**: Magic link tokens single-use and expire after 15 minutes
 - [ ] **SEC-04**: Client review tokens expire after 24 hours
 - [ ] **SEC-05**: Rate limiting on auth endpoints (10 requests/min) and AI endpoints (100/min)
-- [ ] **SEC-06**: Input sanitization on all CSV uploads (prevent injection)
-- [ ] **SEC-07**: No raw CSV rows stored; only parsed fields persisted (data minimization)
+- [x] **SEC-06**: Input sanitization on all CSV uploads (prevent injection)
+- [x] **SEC-07**: No raw CSV rows stored; only parsed fields persisted (data minimization)
 
 ### Email (Transactional)
 
@@ -39,13 +39,13 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### File Upload
 
-- [ ] **UPLD-01**: User can upload CSV file (checking or credit card)
-- [ ] **UPLD-02**: System auto-detects column mapping (date, description, amount, memo)
-- [ ] **UPLD-03**: User can confirm or override column mapping
-- [ ] **UPLD-04**: System filters transactions by project date range
-- [ ] **UPLD-05**: System normalizes amounts (negative = expense, positive = income)
-- [ ] **UPLD-06**: User can delete an upload (removes associated transactions)
-- [ ] **UPLD-07**: Bank-specific amount normalization rules (Chase, BofA, Amex, etc.)
+- [x] **UPLD-01**: User can upload CSV file (checking or credit card)
+- [x] **UPLD-02**: System auto-detects column mapping (date, description, amount, memo)
+- [x] **UPLD-03**: User can confirm or override column mapping
+- [x] **UPLD-04**: System filters transactions by project date range
+- [x] **UPLD-05**: System normalizes amounts (negative = expense, positive = income)
+- [x] **UPLD-06**: User can delete an upload (removes associated transactions)
+- [x] **UPLD-07**: Bank-specific amount normalization rules (Chase, BofA, Amex, etc.)
 
 ### AI Categorization
 
@@ -188,8 +188,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SEC-03 | Phase 1 | Pending |
 | SEC-04 | Phase 6 | Pending |
 | SEC-05 | Phase 1 | Pending |
-| SEC-06 | Phase 2 | Pending |
-| SEC-07 | Phase 2 | Pending |
+| SEC-06 | Phase 2 | Complete |
+| SEC-07 | Phase 2 | Complete |
 | EMAIL-01 | Phase 1 | Pending |
 | EMAIL-02 | Phase 6 | Pending |
 | EMAIL-03 | Phase 1 | Pending |
@@ -197,13 +197,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PROJ-02 | Phase 1 | Pending |
 | PROJ-03 | Phase 1 | Pending |
 | PROJ-04 | Phase 1 | Pending |
-| UPLD-01 | Phase 2 | Pending |
-| UPLD-02 | Phase 2 | Pending |
-| UPLD-03 | Phase 2 | Pending |
-| UPLD-04 | Phase 2 | Pending |
-| UPLD-05 | Phase 2 | Pending |
-| UPLD-06 | Phase 2 | Pending |
-| UPLD-07 | Phase 2 | Pending |
+| UPLD-01 | Phase 2 | Complete |
+| UPLD-02 | Phase 2 | Complete |
+| UPLD-03 | Phase 2 | Complete |
+| UPLD-04 | Phase 2 | Complete |
+| UPLD-05 | Phase 2 | Complete |
+| UPLD-06 | Phase 2 | Complete |
+| UPLD-07 | Phase 2 | Complete |
 | AICAT-01 | Phase 3 | Pending |
 | AICAT-02 | Phase 3 | Pending |
 | AICAT-03 | Phase 3 | Pending |
@@ -258,4 +258,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2025-01-27*
-*Last updated: 2025-01-27 - Roadmap phase mapping complete*
+*Last updated: 2026-01-28 - Phase 2 requirements marked Complete*
