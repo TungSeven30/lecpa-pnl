@@ -1,41 +1,68 @@
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './lib/auth-context';
+import { Login } from './pages/Login';
+import { AuthVerify } from './pages/AuthVerify';
+import { Dashboard } from './pages/Dashboard';
+import { ProjectForm } from './pages/ProjectForm';
+import { Layout } from './components/Layout';
 
-function HomePage() {
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return <div style={{ padding: 20 }}>Loading...</div>;
+  }
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return <>{children}</>;
+}
+
+// Placeholder for project detail page (Phase 2+)
+function ProjectDetail() {
   return (
-    <div style={{ padding: '2rem', fontFamily: 'system-ui, sans-serif' }}>
-      <h1>LeCPA P&L Generator</h1>
-      <p>
-        Transform client bank statements into professional profit & loss reports
-        in minutes.
-      </p>
-      <nav style={{ marginTop: '1rem' }}>
-        <Link to="/login" style={{ color: '#0066cc', textDecoration: 'none' }}>
-          Login to get started
-        </Link>
-      </nav>
-    </div>
+    <Layout title="Project">
+      <p>Project detail coming in Phase 2 (Upload & Parse)</p>
+    </Layout>
   );
 }
 
-function LoginPage() {
-  return (
-    <div style={{ padding: '2rem', fontFamily: 'system-ui, sans-serif' }}>
-      <h1>Login</h1>
-      <p>Magic link authentication coming soon...</p>
-      <Link to="/" style={{ color: '#0066cc', textDecoration: 'none' }}>
-        Back to home
-      </Link>
-    </div>
-  );
-}
-
-function App() {
+function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/login" element={<LoginPage />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/auth/verify" element={<AuthVerify />} />
+      <Route path="/dashboard" element={
+        <ProtectedRoute>
+          <Dashboard />
+        </ProtectedRoute>
+      } />
+      <Route path="/projects/new" element={
+        <ProtectedRoute>
+          <ProjectForm />
+        </ProtectedRoute>
+      } />
+      <Route path="/projects/:id/edit" element={
+        <ProtectedRoute>
+          <ProjectForm />
+        </ProtectedRoute>
+      } />
+      <Route path="/projects/:id" element={
+        <ProtectedRoute>
+          <ProjectDetail />
+        </ProtectedRoute>
+      } />
+      <Route path="/" element={<Navigate to="/dashboard" replace />} />
     </Routes>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <AuthProvider>
+      <AppRoutes />
+    </AuthProvider>
+  );
+}
