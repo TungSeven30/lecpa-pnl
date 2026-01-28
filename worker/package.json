@@ -1,0 +1,23 @@
+{
+  "name": "lecpa-pnl-worker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "cf-typegen": "wrangler types"
+  },
+  "dependencies": {
+    "hono": "^4.6.0",
+    "drizzle-orm": "^0.34.0",
+    "@tsndr/cloudflare-worker-jwt": "^3.2.0",
+    "resend": "^4.0.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.26.0",
+    "wrangler": "^3.80.0",
+    "typescript": "^5.6.0",
+    "@cloudflare/workers-types": "^4.20241022.0"
+  }
+}

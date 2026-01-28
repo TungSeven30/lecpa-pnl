@@ -1,0 +1,20 @@
+name = "lecpa-pnl-worker"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "lecpa-pnl"
+database_id = "YOUR_DATABASE_ID"  # Replace after creating D1 database
+migrations_dir = "../migrations"
+
+# Rate limiting configuration
+# Note: Uncomment when deploying to production
+# [[unsafe.bindings]]
+# name = "RATE_LIMITER"
+# type = "ratelimit"
+# namespace_id = "1"
+# simple = { limit = 10, period = 60 }
+
+[vars]
+APP_URL = "http://localhost:5173"

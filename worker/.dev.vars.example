@@ -1,0 +1,2 @@
+JWT_SECRET=your-jwt-secret-at-least-32-chars-long
+RESEND_API_KEY=re_xxxxxxxx
