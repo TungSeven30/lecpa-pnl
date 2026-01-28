@@ -34,3 +34,4 @@ coverage/
 
 # OS
 Thumbs.db
+*.tsbuildinfo
