@@ -4,6 +4,7 @@ import { Login } from './pages/Login';
 import { AuthVerify } from './pages/AuthVerify';
 import { Dashboard } from './pages/Dashboard';
 import { ProjectForm } from './pages/ProjectForm';
+import { ProjectDetail } from './pages/ProjectDetail';
 import { Layout } from './components/Layout';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -18,15 +19,6 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   }
 
   return <>{children}</>;
-}
-
-// Placeholder for project detail page (Phase 2+)
-function ProjectDetail() {
-  return (
-    <Layout title="Project">
-      <p>Project detail coming in Phase 2 (Upload & Parse)</p>
-    </Layout>
-  );
 }
 
 function AppRoutes() {
