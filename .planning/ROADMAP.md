@@ -53,11 +53,13 @@ Plans:
   5. Amounts are normalized (negative = expense) with bank-specific rules (Chase, BofA, Amex)
   6. CSV input is sanitized to prevent injection attacks
   7. Only parsed fields stored (date, description, amount, memo); no raw CSV rows persisted
-**Plans**: TBD
+**Plans**: 4 plans in 3 waves
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
+- [ ] 02-01-PLAN.md — Database schema (uploads, transactions tables with indexes)
+- [ ] 02-02-PLAN.md — CSV services (parser, sanitizer, column detector, normalizer, bank configs)
+- [ ] 02-03-PLAN.md — Upload flow (API endpoint, UploadZone, ColumnMapper, ProjectDetail page)
+- [ ] 02-04-PLAN.md — Delete upload functionality (soft delete with cascade)
 
 ### Phase 3: AI Categorization
 **Goal**: Transactions are automatically categorized using AI with learning from corrections
@@ -140,7 +142,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete | 2026-01-28 |
-| 2. Upload & Parse | 0/? | Not started | - |
+| 2. Upload & Parse | 0/4 | Planned | - |
 | 3. AI Categorization | 0/? | Not started | - |
 | 4. Review Interface | 0/? | Not started | - |
 | 5. Reports & Export | 0/? | Not started | - |
