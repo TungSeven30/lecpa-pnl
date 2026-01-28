@@ -1,0 +1,16 @@
+{
+  "name": "lecpa-pnl",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:worker\" \"npm run dev:frontend\"",
+    "dev:worker": "cd worker && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
+    "db:generate": "cd worker && npx drizzle-kit generate",
+    "db:migrate:local": "cd worker && wrangler d1 migrations apply lecpa-pnl --local",
+    "db:migrate:remote": "cd worker && wrangler d1 migrations apply lecpa-pnl --remote"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
