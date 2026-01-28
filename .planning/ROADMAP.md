@@ -12,7 +12,7 @@ This roadmap delivers a web-based P&L generator that transforms 2-4 hours of man
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation** - Authentication, database, project management, basic UI shell
+- [x] **Phase 1: Foundation** - Authentication, database, project management, basic UI shell
 - [ ] **Phase 2: Upload & Parse** - CSV upload, column detection, transaction parsing
 - [ ] **Phase 3: AI Categorization** - Claude integration, rules engine, vendor normalization
 - [ ] **Phase 4: Review Interface** - Transaction UI, batch actions, splitting, transfer/duplicate detection
@@ -37,9 +37,9 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 3 plans in 2 waves
 
 Plans:
-- [ ] 01-01-PLAN.md — Project infrastructure setup (monorepo, Hono, React, D1 schema)
-- [ ] 01-02-PLAN.md — Authentication system (magic link, JWT, rate limiting, Resend)
-- [ ] 01-03-PLAN.md — Project management (CRUD API, Dashboard UI)
+- [x] 01-01-PLAN.md — Project infrastructure setup (monorepo, Hono, React, D1 schema)
+- [x] 01-02-PLAN.md — Authentication system (magic link, JWT, rate limiting, Resend)
+- [x] 01-03-PLAN.md — Project management (CRUD API, Dashboard UI)
 
 ### Phase 2: Upload & Parse
 **Goal**: Staff can upload CSV bank statements and have transactions parsed correctly
@@ -139,7 +139,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/3 | Planned | - |
+| 1. Foundation | 3/3 | Complete | 2026-01-28 |
 | 2. Upload & Parse | 0/? | Not started | - |
 | 3. AI Categorization | 0/? | Not started | - |
 | 4. Review Interface | 0/? | Not started | - |
@@ -148,4 +148,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 
 ---
 *Roadmap created: 2025-01-27*
-*Last updated: 2025-01-27*
+*Last updated: 2026-01-28*
