@@ -1,6 +1,8 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { createDb } from './db/client';
+import authRoutes from './routes/auth';
+import projectRoutes from './routes/projects';
 
 // Define environment bindings
 export interface Bindings {
@@ -12,6 +14,9 @@ export interface Bindings {
   // that may not be available in all environments
   RATE_LIMITER?: unknown;
 }
+
+// Alias for backwards compatibility
+export type Env = Bindings;
 
 // Define variables that can be set in middleware
 export interface Variables {
@@ -42,5 +47,9 @@ app.get('/api/health', (c) => {
     timestamp: new Date().toISOString()
   });
 });
+
+// Mount routes
+app.route('/api/auth', authRoutes);
+app.route('/api/projects', projectRoutes);
 
 export default app;
