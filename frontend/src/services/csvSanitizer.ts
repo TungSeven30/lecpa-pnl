@@ -13,12 +13,12 @@ export function sanitizeCSVField(value: string | null | undefined): string {
 
   // Check if starts with dangerous character
   if (DANGEROUS_CHARS.some(char => str.startsWith(char))) {
-    // Exception: negative numbers starting with - are OK
+    // Exception: signed numbers starting with - or + are OK
     // Only prefix if it's not a valid number
-    if (str.startsWith('-')) {
-      const withoutMinus = str.substring(1).replace(/[$,]/g, '');
-      if (!isNaN(parseFloat(withoutMinus))) {
-        return str; // Valid negative number, don't sanitize
+    if (str.startsWith('-') || str.startsWith('+')) {
+      const withoutSign = str.substring(1).replace(/[$,]/g, '');
+      if (!isNaN(parseFloat(withoutSign)) && withoutSign.length > 0) {
+        return str; // Valid signed number, don't sanitize
       }
     }
     return `'${str}`;
