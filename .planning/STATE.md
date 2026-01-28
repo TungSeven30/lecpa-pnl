@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2025-01-27)
 ## Current Position
 
 Phase: 2 of 6 (Upload & Parse)
-Plan: 3 of 3 in current phase
+Plan: 4 of 4 in current phase
 Status: Phase complete
-Last activity: 2026-01-28 - Completed 02-03-PLAN.md (upload flow)
+Last activity: 2026-01-28 - Completed 02-04-PLAN.md (upload deletion)
 
-Progress: [#####-----] 83%
+Progress: [######----] 100% (Phase 2)
 
 ## Phase 1 Plans
 
@@ -35,27 +35,29 @@ Progress: [#####-----] 83%
 | 02-01 | Database schema (uploads/transactions) | 1 | Complete |
 | 02-02 | Frontend CSV parsing services | 1 | Complete |
 | 02-03 | Upload flow (API + UI) | 2 | Complete |
+| 02-04 | Upload deletion with soft delete | 3 | Complete |
 
 **Execution Order:**
 - Wave 1: Plans 02-01, 02-02 (parallel) - COMPLETE
 - Wave 2: Plan 02-03 (upload UI) - COMPLETE
+- Wave 3: Plan 02-04 (upload deletion) - COMPLETE
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
-- Average duration: 3.8 min
-- Total execution time: 0.38 hours
+- Total plans completed: 7
+- Average duration: 3.7 min
+- Total execution time: 0.43 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation | 3/3 | 14 min | 4.7 min |
-| 02-upload-parse | 3/3 | 9 min | 3.0 min |
+| 02-upload-parse | 4/4 | 13 min | 3.3 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-03 (4 min), 02-01 (2 min), 02-02 (2 min), 02-03 (5 min)
+- Last 5 plans: 02-01 (2 min), 02-02 (2 min), 02-03 (5 min), 02-04 (4 min)
 - Trend: stable
 
 *Updated after each plan completion*
@@ -92,6 +94,8 @@ Recent decisions affecting current work:
 - Batch insert chunk size: 12 transactions (D1 parameter limit safety)
 - Four-step upload flow: file → bank → mapping → processing
 - Date filtering on frontend before API call
+- Soft delete cascade pattern: upload status='deleted' filters out associated transactions
+- Browser confirm() for delete confirmation (simple, native UX)
 
 ### User Setup Required (Before Execution)
 
@@ -125,8 +129,8 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-28 02:37 UTC
-Stopped at: Completed 02-03-PLAN.md (upload flow) - Phase 2 complete
+Last session: 2026-01-28 02:44 UTC
+Stopped at: Completed 02-04-PLAN.md (upload deletion) - Phase 2 complete
 Resume file: None
 
 ## Next Steps
