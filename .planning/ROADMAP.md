@@ -24,7 +24,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 ### Phase 1: Foundation
 **Goal**: Staff can securely access the system, manage projects, and navigate the application
 **Depends on**: Nothing (first phase)
-**Requirements**: AUTH-01, AUTH-02, AUTH-03, AUTH-04, SEC-01, SEC-02, SEC-03, SEC-05, PROJ-01, PROJ-02, PROJ-03, PROJ-04
+**Requirements**: AUTH-01, AUTH-02, AUTH-03, AUTH-04, SEC-01, SEC-02, SEC-03, SEC-05, EMAIL-01, EMAIL-03, PROJ-01, PROJ-02, PROJ-03, PROJ-04
 **Success Criteria** (what must be TRUE):
   1. Staff can request magic link, receive it via email, and log in within 15 minutes
   2. Staff session persists across browser sessions for 7 days
@@ -33,6 +33,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   5. Staff can log out from any page in the application
   6. All endpoints served over HTTPS with rate limiting enabled
   7. Magic link tokens are single-use and expire after 15 minutes
+  8. Magic link emails delivered via Resend API; delivery failures logged
 **Plans**: TBD
 
 Plans:
@@ -42,7 +43,7 @@ Plans:
 ### Phase 2: Upload & Parse
 **Goal**: Staff can upload CSV bank statements and have transactions parsed correctly
 **Depends on**: Phase 1 (needs auth and projects)
-**Requirements**: UPLD-01, UPLD-02, UPLD-03, UPLD-04, UPLD-05, UPLD-06, UPLD-07, SEC-06
+**Requirements**: UPLD-01, UPLD-02, UPLD-03, UPLD-04, UPLD-05, UPLD-06, UPLD-07, SEC-06, SEC-07
 **Success Criteria** (what must be TRUE):
   1. Staff can upload a CSV file (checking or credit card) to a project
   2. System auto-detects date, description, amount, and memo columns with reasonable accuracy
@@ -50,6 +51,7 @@ Plans:
   4. Only transactions within the project date range appear in the project
   5. Amounts are normalized (negative = expense) with bank-specific rules (Chase, BofA, Amex)
   6. CSV input is sanitized to prevent injection attacks
+  7. Only parsed fields stored (date, description, amount, memo); no raw CSV rows persisted
 **Plans**: TBD
 
 Plans:
@@ -59,7 +61,7 @@ Plans:
 ### Phase 3: AI Categorization
 **Goal**: Transactions are automatically categorized using AI with learning from corrections
 **Depends on**: Phase 2 (needs transactions to categorize)
-**Requirements**: AICAT-01, AICAT-02, AICAT-03, AICAT-04, AICAT-05, AICAT-06, AICAT-07, RULE-01, RULE-02, RULE-03, RULE-04
+**Requirements**: AICAT-01, AICAT-02, AICAT-03, AICAT-04, AICAT-05, AICAT-06, AICAT-07, AICAT-08, RULE-01, RULE-02, RULE-03, RULE-04
 **Success Criteria** (what must be TRUE):
   1. After upload, transactions are automatically categorized into Business/Personal/Needs Review buckets
   2. Each transaction displays an AI confidence score (0-100%)
@@ -67,7 +69,8 @@ Plans:
   4. Rules take precedence over AI for known vendors (firm-level rules)
   5. Staff can view and delete learned rules from a rules management interface
   6. AI category names are mapped to category_id; ambiguous names default to "Needs Review"
-  7. If Claude API fails, system falls back to Opus then marks as "Needs Review"
+  7. If Claude API fails, system uses fallback chain; ultimate fallback marks as "Needs Review"
+  8. Model availability validated on startup; logs warning if configured model unavailable
 **Plans**: TBD
 
 Plans:
@@ -111,14 +114,15 @@ Plans:
 ### Phase 6: Client Review & Polish
 **Goal**: Staff can send ambiguous transactions to clients for clarification; system is production-ready
 **Depends on**: Phase 4 (needs review interface and transactions)
-**Requirements**: CLIENT-01, CLIENT-02, CLIENT-03, CLIENT-04, CLIENT-05, CLIENT-06, SEC-04, RETAIN-01, RETAIN-02, RETAIN-03
+**Requirements**: CLIENT-01, CLIENT-02, CLIENT-03, CLIENT-04, CLIENT-05, CLIENT-06, EMAIL-02, SEC-04, RETAIN-01, RETAIN-02, RETAIN-03
 **Success Criteria** (what must be TRUE):
   1. Staff can create a client review request for selected "Needs Review" transactions
   2. System generates a unique token/link for client access (no login required)
   3. Client can mark each transaction as Business or Personal from the review page
   4. Client can optionally select a category and add notes
   5. Client responses are automatically applied to the transactions
-  6. Client review tokens expire after 24 hours
+  6. Client review link emails delivered via Resend API
+  7. Client review tokens expire after 24 hours
   7. Soft delete is implemented with deleted_at column
   8. Automated purge job runs for records exceeding 7-year retention
 **Plans**: TBD

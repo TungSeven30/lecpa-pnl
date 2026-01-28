@@ -38,8 +38,8 @@ A web-based P&L (Profit & Loss) statement generator for CPA firms that automates
 - Mobile app — Web responsive is sufficient
 - Multi-tenant roles/permissions — All staff equal for MVP
 - Real-time collaboration — Single-user editing per project
-- Automated email sending — Staff manually sends review links for now
 - Inventory tracking — COGS uses simple Beginning/Purchases/Ending
+- Marketing/bulk email — Only transactional email (magic links, client review) via Resend
 
 ## Context
 
@@ -69,11 +69,13 @@ Each has a specific chart of accounts template derived from actual CPA practice.
 ## Constraints
 
 - **Stack**: Cloudflare (Pages + Workers + D1 + R2) — company standardized
-- **AI Provider**: Anthropic Claude (Sonnet 4.5 primary, Opus 4.5 fallback)
+- **AI Provider**: Anthropic Claude (model IDs configured via env vars, with fallback chain)
+- **Email**: Resend for transactional email (magic links, client review links)
 - **Budget**: Cost-conscious on AI — batch efficiently, cache aggressively
 - **Timeline**: 6-week target for MVP
 - **Data Retention**: 7 years (IRS statute of limitations)
-- **Compliance**: No PII beyond client name/email; no SSN/financial account numbers stored
+- **Data Minimization**: No raw CSV rows stored; parse only needed fields (date, description, amount, memo). No SSN or full account numbers.
+- **PII Scope**: Only client name/email stored as identifiable data; transaction descriptions may contain partial merchant info
 
 ## Key Decisions
 
@@ -83,7 +85,9 @@ Each has a specific chart of accounts template derived from actual CPA practice.
 | Cloudflare stack | Company already uses it; consolidated infrastructure | — Pending |
 | Three-bucket categorization | Clear decision tree; uncertain → human review | — Pending |
 | Global learning rules | Most vendors behave similarly; simpler rule management | — Pending |
-| Claude Sonnet 4.5 primary | Cost-effective for bulk; Opus available for edge cases | — Pending |
+| Claude models via env vars | Model IDs configurable; fallback chain: Sonnet → Opus → Haiku → error | — Pending |
+| Resend for email | Transactional email for magic links and client review; free tier sufficient | — Pending |
+| No raw CSV storage | Data minimization: store only parsed fields, not original row | — Pending |
 | 7-year retention with 30-day purge warning | Covers IRS statute; admin can extend | — Pending |
 | Magic link auth | Simple for small team; no password management | — Pending |
 | Hono framework for Workers | Lightweight, fast, good DX for Cloudflare Workers | — Pending |

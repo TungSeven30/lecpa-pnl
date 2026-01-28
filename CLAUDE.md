@@ -13,7 +13,8 @@ This is a P&L (Profit & Loss) statement generator for CPA firms. It automates ba
 - **Database:** Cloudflare D1 (SQLite-compatible)
 - **ORM:** Drizzle ORM
 - **File Storage:** Cloudflare R2
-- **AI:** Anthropic Claude API (Sonnet 4 primary, Opus 4 fallback)
+- **AI:** Anthropic Claude API (model IDs via env vars, with fallback chain)
+- **Email:** Resend (transactional email for magic links, client review)
 - **Auth:** Email magic link with JWT sessions
 
 ## Key Architecture Decisions
@@ -113,14 +114,19 @@ class AppError extends Error {
   }
 }
 
-// AI categorization fallback
-async function categorize(transaction: Transaction): Promise<CategorizationResult> {
+// AI categorization fallback (models from env vars)
+async function categorize(transaction: Transaction, env: Env): Promise<CategorizationResult> {
+  const primaryModel = env.CLAUDE_PRIMARY_MODEL;   // e.g., "claude-sonnet-4-5-20250929"
+  const fallbackModel = env.CLAUDE_FALLBACK_MODEL; // e.g., "claude-opus-4-5-20251101"
+
   try {
-    return await callClaude('sonnet');
+    return await callClaude(primaryModel, transaction);
   } catch (e) {
+    console.warn(`Primary model failed: ${e.message}, trying fallback`);
     try {
-      return await callClaude('opus');
+      return await callClaude(fallbackModel, transaction);
     } catch (e) {
+      console.error(`All models failed: ${e.message}`);
       return { bucket: 'needs_review', confidence: 0, reason: 'AI unavailable' };
     }
   }
@@ -205,8 +211,10 @@ Use `/gsd:progress` to check current status.
 
 ## Important Notes
 
-1. **Never store PII beyond client name/email** - No SSN, bank account numbers, etc.
-2. **7-year data retention** - Required for IRS compliance
-3. **Manual email for MVP** - Staff manually sends magic links and client review links
+1. **Data minimization** - No raw CSV rows stored; parse only needed fields (date, description, amount, memo)
+2. **No sensitive PII** - No SSN, full bank account numbers stored; only client name/email
+3. **7-year data retention** - Required for IRS compliance; automated purge with 30-day warning
 4. **Soft delete only** - Use `deleted_at` column, never hard delete
 5. **Amount signs matter** - Always normalize: negative = expense, positive = income
+6. **Model IDs via env vars** - Configure `CLAUDE_PRIMARY_MODEL` and `CLAUDE_FALLBACK_MODEL`; validate on startup
+7. **Transactional email via Resend** - Magic links and client review links delivered automatically

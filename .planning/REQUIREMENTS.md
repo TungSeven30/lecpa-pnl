@@ -22,6 +22,13 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **SEC-04**: Client review tokens expire after 24 hours
 - [ ] **SEC-05**: Rate limiting on auth endpoints (10 requests/min) and AI endpoints (100/min)
 - [ ] **SEC-06**: Input sanitization on all CSV uploads (prevent injection)
+- [ ] **SEC-07**: No raw CSV rows stored; only parsed fields persisted (data minimization)
+
+### Email (Transactional)
+
+- [ ] **EMAIL-01**: System sends magic link email via Resend API
+- [ ] **EMAIL-02**: System sends client review link email via Resend API
+- [ ] **EMAIL-03**: Email delivery failures logged and surfaced to staff
 
 ### Projects
 
@@ -42,13 +49,14 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### AI Categorization
 
-- [ ] **AICAT-01**: System categorizes transactions using Claude Sonnet 4
+- [ ] **AICAT-01**: System categorizes transactions using Claude API (model ID from env var)
 - [ ] **AICAT-02**: Each transaction assigned to bucket: Business / Personal / Needs Review
 - [ ] **AICAT-03**: Each transaction shows AI confidence score (0-100%)
 - [ ] **AICAT-04**: System normalizes vendor names before categorization
 - [ ] **AICAT-05**: System checks rules table before calling AI (rules take precedence)
 - [ ] **AICAT-06**: AI category names mapped to category_id; ambiguous names default to "Needs Review"
-- [ ] **AICAT-07**: Claude API fallback: Sonnet → Opus → mark as "Needs Review" if both fail
+- [ ] **AICAT-07**: Claude API fallback chain: primary model → fallback model → mark as "Needs Review"
+- [ ] **AICAT-08**: Model availability validated on startup; logs warning if configured model unavailable
 
 ### Rules Engine
 
@@ -181,6 +189,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SEC-04 | Phase 6 | Pending |
 | SEC-05 | Phase 1 | Pending |
 | SEC-06 | Phase 2 | Pending |
+| SEC-07 | Phase 2 | Pending |
+| EMAIL-01 | Phase 1 | Pending |
+| EMAIL-02 | Phase 6 | Pending |
+| EMAIL-03 | Phase 1 | Pending |
 | PROJ-01 | Phase 1 | Pending |
 | PROJ-02 | Phase 1 | Pending |
 | PROJ-03 | Phase 1 | Pending |
@@ -199,6 +211,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | AICAT-05 | Phase 3 | Pending |
 | AICAT-06 | Phase 3 | Pending |
 | AICAT-07 | Phase 3 | Pending |
+| AICAT-08 | Phase 3 | Pending |
 | RULE-01 | Phase 3 | Pending |
 | RULE-02 | Phase 3 | Pending |
 | RULE-03 | Phase 3 | Pending |
@@ -239,8 +252,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | RETAIN-03 | Phase 6 | Pending |
 
 **Coverage:**
-- v1 requirements: 66 total
-- Mapped to phases: 66
+- v1 requirements: 72 total
+- Mapped to phases: 72
 - Unmapped: 0 ✓
 
 ---
