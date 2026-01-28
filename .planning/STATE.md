@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2025-01-27)
 
 **Core value:** Staff can process a client's monthly financials in 15-30 minutes instead of several hours
-**Current focus:** Phase 1 - Foundation (COMPLETE)
+**Current focus:** Phase 2 - Upload & Parse (IN PROGRESS)
 
 ## Current Position
 
-Phase: 1 of 6 (Foundation)
-Plan: 3 of 3 in current phase
-Status: Phase complete
-Last activity: 2026-01-27 - Completed 01-02-PLAN.md (authentication)
+Phase: 2 of 6 (Upload & Parse)
+Plan: 2 of 3 in current phase
+Status: In progress
+Last activity: 2026-01-27 - Completed 02-02-PLAN.md (frontend CSV services)
 
-Progress: [##--------] 17%
+Progress: [####------] 71%
 
 ## Phase 1 Plans
 
@@ -28,21 +28,34 @@ Progress: [##--------] 17%
 - Wave 1: Plan 01-01 (infrastructure) - COMPLETE
 - Wave 2: Plans 01-02 and 01-03 (parallel) - COMPLETE
 
+## Phase 2 Plans
+
+| Plan | Description | Wave | Status |
+|------|-------------|------|--------|
+| 02-01 | Database schema (uploads/transactions) | 1 | Complete |
+| 02-02 | Frontend CSV parsing services | 1 | Complete |
+| 02-03 | Upload UI components | 2 | Not started |
+
+**Execution Order:**
+- Wave 1: Plans 02-01, 02-02 (parallel) - COMPLETE
+- Wave 2: Plan 02-03 (upload UI) - Not started
+
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
-- Average duration: 5 min
-- Total execution time: 0.23 hours
+- Total plans completed: 5
+- Average duration: 3.6 min
+- Total execution time: 0.30 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation | 3/3 | 14 min | 4.7 min |
+| 02-upload-parse | 2/3 | 4 min | 2.0 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (6 min), 01-02 (4 min), 01-03 (4 min)
+- Last 5 plans: 01-02 (4 min), 01-03 (4 min), 02-01 (2 min), 02-02 (2 min)
 - Trend: improving
 
 *Updated after each plan completion*
@@ -71,6 +84,11 @@ Recent decisions affecting current work:
 - Two-step magic link verification (GET check, POST consume) for email scanner protection
 - JWT in httpOnly cookie with SameSite=Strict for CSRF protection
 - Rate limiting keyed by email (10 req/min) to prevent brute force
+- Bank configs define amount sign conventions per bank
+- CSV injection prevention via OWASP single-quote prefix pattern
+- Amounts stored in cents (integer) for precision
+- Column detection validates against first row content
+- Date parsing uses bank-specific formats with fallback chain
 
 ### User Setup Required (Before Execution)
 
@@ -104,12 +122,11 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-01-28 00:54 UTC
-Stopped at: Completed 01-02-PLAN.md (authentication)
+Last session: 2026-01-27 20:27 UTC
+Stopped at: Completed 02-02-PLAN.md (frontend CSV services)
 Resume file: None
 
 ## Next Steps
 
-Phase 1 (Foundation) is complete. Ready for Phase 2 (Upload & Parse):
-1. `/gsd:plan-phase 2` - Plan the upload and parsing phase
-2. `/gsd:execute-phase 2` - Execute the phase
+Phase 2 (Upload & Parse) - Wave 1 complete. Ready for Wave 2:
+1. `/gsd:execute 02-03` - Build upload UI components
