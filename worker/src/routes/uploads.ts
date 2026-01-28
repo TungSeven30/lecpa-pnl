@@ -159,4 +159,65 @@ app.get('/', async (c) => {
   });
 });
 
+// DELETE /projects/:projectId/uploads/:uploadId - Soft delete upload and transactions
+app.delete('/:uploadId', async (c) => {
+  const projectIdParam = c.req.param('projectId');
+  if (!projectIdParam) {
+    return c.json({ error: 'Project ID is required' }, 400);
+  }
+  const projectId = parseInt(projectIdParam);
+  const uploadIdParam = c.req.param('uploadId');
+  if (!uploadIdParam) {
+    return c.json({ error: 'Upload ID is required' }, 400);
+  }
+  const uploadId = parseInt(uploadIdParam);
+  const userId = c.get('userId');
+  const db = c.get('db');
+
+  // Verify project belongs to user
+  const [project] = await db
+    .select()
+    .from(projects)
+    .where(and(
+      eq(projects.id, projectId),
+      eq(projects.userId, userId)
+    ))
+    .limit(1);
+
+  if (!project) {
+    return c.json({ error: 'Project not found' }, 404);
+  }
+
+  // Verify upload exists and belongs to project
+  const [upload] = await db
+    .select()
+    .from(uploads)
+    .where(and(
+      eq(uploads.id, uploadId),
+      eq(uploads.projectId, projectId),
+      eq(uploads.status, 'active')
+    ))
+    .limit(1);
+
+  if (!upload) {
+    return c.json({ error: 'Upload not found' }, 404);
+  }
+
+  const now = new Date();
+
+  // Soft delete: set status to deleted and deletedAt timestamp
+  await db
+    .update(uploads)
+    .set({
+      status: 'deleted',
+      deletedAt: now
+    })
+    .where(eq(uploads.id, uploadId));
+
+  // Transactions are filtered by upload status on query, so marking upload as deleted
+  // effectively removes associated transactions from view (cascade via status check)
+
+  return c.json({ success: true, deletedAt: now.toISOString() });
+});
+
 export default app;
