@@ -3,6 +3,7 @@ import { cors } from 'hono/cors';
 import { createDb } from './db/client';
 import authRoutes from './routes/auth';
 import projectRoutes from './routes/projects';
+import uploadRoutes from './routes/uploads';
 
 // Define environment bindings
 export interface Bindings {
@@ -51,5 +52,6 @@ app.get('/api/health', (c) => {
 // Mount routes
 app.route('/api/auth', authRoutes);
 app.route('/api/projects', projectRoutes);
+app.route('/api/projects/:projectId/uploads', uploadRoutes);
 
 export default app;
